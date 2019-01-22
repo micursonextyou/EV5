@@ -109,3 +109,15 @@ div[class^='col']{
   height: 50px;
   width: 100%;
 }*/
+
+@-webkit-keyframes  efecto_caida {
+  0%{
+    transform: translate(0,-150%);
+  }
+  60%{
+    transform: translate(0,5%);
+  }
+  100%{
+    transform: translate(0,0%);
+  }
+}

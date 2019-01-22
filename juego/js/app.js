@@ -23,10 +23,86 @@ var vectorColumnas=[
     var transSec = 0;
     var currentMinutes = 0;
 
+/// variable ed movimientos
+    var movimietos=20;
+
 
 //oyente de ventos click
-
+onmouseup
 document.getElementById("ini").addEventListener("click",RUN );
+
+
+// ayentes A
+document.getElementById("A0").addEventListener("onmouseup",MOVIMIENTOS_MOUSE);
+document.getElementById("A1").addEventListener("onmouseup",MOVIMIENTOS_MOUSE);
+document.getElementById("A2").addEventListener("onmouseup",MOVIMIENTOS_MOUSE);
+document.getElementById("A3").addEventListener("onmouseup",MOVIMIENTOS_MOUSE);
+document.getElementById("A4").addEventListener("onmouseup",MOVIMIENTOS_MOUSE);
+document.getElementById("A5").addEventListener("onmouseup",MOVIMIENTOS_MOUSE);
+document.getElementById("A6").addEventListener("onmouseup",MOVIMIENTOS_MOUSE);
+
+// Oyentes de B
+document.getElementById("B0").addEventListener("onmouseup",movimientos);
+document.getElementById("B1").addEventListener("onmouseup",movimientos);
+document.getElementById("B2").addEventListener("onmouseup",movimientos);
+document.getElementById("B3").addEventListener("onmouseup",movimientos);
+document.getElementById("B4").addEventListener("onmouseup",movimientos);
+document.getElementById("B5").addEventListener("onmouseup",movimientos);
+document.getElementById("B6").addEventListener("onmouseup",movimientos);
+
+// Oyentes de C
+document.getElementById("C0").addEventListener("onmouseup",movimientos);
+document.getElementById("C1").addEventListener("onmouseup",movimientos);
+document.getElementById("C2").addEventListener("onmouseup",movimientos);
+document.getElementById("C3").addEventListener("onmouseup",movimientos);
+document.getElementById("C4").addEventListener("onmouseup",movimientos);
+document.getElementById("C5").addEventListener("onmouseup",movimientos);
+document.getElementById("C6").addEventListener("onmouseup",movimientos);
+
+
+// Oyentes de D
+document.getElementById("D0").addEventListener("onmouseup",movimientos);
+document.getElementById("D1").addEventListener("onmouseup",movimientos);
+document.getElementById("D2").addEventListener("onmouseup",movimientos);
+document.getElementById("D3").addEventListener("onmouseup",movimientos);
+document.getElementById("D4").addEventListener("onmouseup",movimientos);
+document.getElementById("D5").addEventListener("onmouseup",movimientos);
+document.getElementById("D6").addEventListener("onmouseup",movimientos);
+
+// Oyentes de E
+document.getElementById("E0").addEventListener("onmouseup",movimientos);
+document.getElementById("E1").addEventListener("onmouseup",movimientos);
+document.getElementById("E2").addEventListener("onmouseup",movimientos);
+document.getElementById("E3").addEventListener("onmouseup",movimientos);
+document.getElementById("E4").addEventListener("onmouseup",movimientos);
+document.getElementById("E5").addEventListener("onmouseup",movimientos);
+document.getElementById("E6").addEventListener("onmouseup",movimientos);
+
+//Oyentes de F
+document.getElementById("F0").addEventListener("onmouseup",movimientos);
+document.getElementById("F1").addEventListener("onmouseup",movimientos);
+document.getElementById("F2").addEventListener("onmouseup",movimientos);
+document.getElementById("F3").addEventListener("onmouseup",movimientos);
+document.getElementById("F4").addEventListener("onmouseup",movimientos);
+document.getElementById("F5").addEventListener("onmouseup",movimientos);
+document.getElementById("F6").addEventListener("onmouseup",movimientos);
+
+// Oyentes de G
+document.getElementById("G0").addEventListener("onmouseup",movimientos);
+document.getElementById("G1").addEventListener("onmouseup",movimientos);
+document.getElementById("G2").addEventListener("onmouseup",movimientos);
+document.getElementById("G3").addEventListener("onmouseup",movimientos);
+document.getElementById("G4").addEventListener("onmouseup",movimientos);
+document.getElementById("G5").addEventListener("onmouseup",movimientos);
+document.getElementById("G6").addEventListener("onmouseup",movimientos);
+
+
+
+
+
+
+
+
 
 
 /*     Funciones     */
@@ -35,12 +111,17 @@ document.getElementById("ini").addEventListener("click",RUN );
 
 function RUN() {
 	
+ var boton=document.getElementById("ini").innerHTML;
+	if(boton.valueOf()=="Iniciar"){
+		botonInicioRinicio();
+		timer ();
+		crear_nodos();
+		Tres_en_line ();
+		document.getElementById('movimientos-text').innerHTML=movimietos;
+	}else{
+		document.location.reload();
+	}
 
-	
-	botonInicioRinicio();
-	timer ();
-	crear_nodos();
-	Tres_en_line ();
 
 	
 }
@@ -68,9 +149,42 @@ function crear_nodos(){
 
 		for(var i=0;i<7;i++){
 			elemPadre= document.getElementById(elemColumna.id).getElementsByTagName('div')[i];
-			
+			elemPadre.setAttribute("style", "animation: efecto_caida 600ms;");
+			var array=[];
+			array.push(elemPadre);
+
+			NUEVOnodo(array);
 
 			//funcion asigna imagen de forma aleatorias
+			/*imagen= Math.floor(Math.random()*4);
+
+			//creando elemto Span
+			nuevo_ele=document.createElement("span");
+			elemPadre.appendChild(nuevo_ele);
+
+
+			// creamos elemento img.
+			nuevo_img=document.createElement("img");
+			nuevo_ele.setAttribute("class", "I"+imagen);
+			nuevo_img.setAttribute("src", "image/"+imagen+".png");
+			
+			nuevo_img.style.width = '80%';
+			nuevo_ele.appendChild(nuevo_img);		*/
+			 
+		}
+	
+	}
+
+}
+
+
+
+function NUEVOnodo (elemento) {
+	var vectorElementos=[];
+	vectorElementos=elemento;
+	for(var i=0;i<vectorElementos.length;i++){
+		var elemPadre=vectorElementos[i];
+
 			imagen= Math.floor(Math.random()*4);
 
 			//creando elemto Span
@@ -84,12 +198,10 @@ function crear_nodos(){
 			nuevo_img.setAttribute("src", "image/"+imagen+".png");
 			
 			nuevo_img.style.width = '80%';
-			nuevo_ele.appendChild(nuevo_img);		
-			 
-		}
-	
+			nuevo_ele.appendChild(nuevo_img);
 	}
 
+	// body... 
 }
 
 //// Funcion de cambiar texto del boton
@@ -110,7 +222,7 @@ function botonInicioRinicio() {
   }else{
   		 uno.innerHTML = iniciar;
   		
-	}; 
+	} 
 }
 // fin cambiar texto boton
 
@@ -173,7 +285,8 @@ function Tres_en_line () {
 		}
 		//alert(auxSegudoNivel.length);
 		for(var i=0;i<5;i++){
-		
+
+
 			var a=i+1;
 			var b=a+1;
 			var Aux1=auxSegudoNivel[i].className;
@@ -191,19 +304,60 @@ function Tres_en_line () {
 					elemPrimerNivel2.removeChild(auxSegudoNivel[a]);
 					elemPrimerNivel3.removeChild(auxSegudoNivel[b]);
 
+					switch (Aux1) {
+						case "I0":
+							puntos=puntos+30;
+							document.getElementById("score-text").innerHTML=puntos;
+							break;
+						case "I1":
+							puntos=puntos+40;
+							document.getElementById("score-text").innerHTML=puntos;
+							break;	
+						case "I2":
+							puntos=puntos+50;
+							document.getElementById("score-text").innerHTML=puntos;
+							break;
+						case "I4":
+							puntos=puntos+60
+							document.getElementById("score-text").innerHTML=puntos;
+							break;	
+
+						default:
+							// statements_def
+							break;
+					}
+					var vector=[];
+					vector[0]=elemPrimerNivel;
+					vector[1]=elemPrimerNivel2;
+					vector[2]=elemPrimerNivel3;
+
+					NUEVOnodo(vector);
+
+
 				}
-			}
-
-			
+			}			
 		}
-
-		
-
-		
-		
-
 	}
+
+	//llamar cargar nodos
+
+
 }
 
-// fin movimientos
+// fin 3 en linea;
+
+
+// funcion movimientos mouse
+
+function MOVIMIENTOS_MOUSE () {
+
+	movimientos--;
+	alert();
+	Tres_en_line();
+	// body... 
+}
+
+
+// fin funcion movimientos mouse
+
 
