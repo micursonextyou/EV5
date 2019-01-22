@@ -31,15 +31,16 @@ document.getElementById("ini").addEventListener("click",RUN );
 
 /*     Funciones     */
 
-// Funcion de asignacion aleatoari para cargar imagenes, Usando Mat
+// Funcion de inico del juego invoca a funcie de control
 
 function RUN() {
 	
 
 	
 	botonInicioRinicio();
-	crear_nodos();
 	timer ();
+	crear_nodos();
+	Tres_en_line ();
 
 	
 }
@@ -79,33 +80,32 @@ function crear_nodos(){
 
 			// creamos elemento img.
 			nuevo_img=document.createElement("img");
+			nuevo_ele.setAttribute("class", "I"+imagen);
 			nuevo_img.setAttribute("src", "image/"+imagen+".png");
-			//nuevo_img.setAttribute("style","position: absolute");
+			
 			nuevo_img.style.width = '80%';
-			nuevo_ele.appendChild(nuevo_img);
-				
-			
-			
+			nuevo_ele.appendChild(nuevo_img);		
 			 
 		}
-
-		
-		
+	
 	}
 
 }
 
 //// Funcion de cambiar texto del boton
+/*
+	funcion que cambia el texto del boton inicio
+*/
+
+
 function botonInicioRinicio() {
 	
   var uno = document.getElementById("ini");
   var reiniciar="Reiniciar";
   var iniciar="Iniciar";
 
-  if (uno.innerHTML == "Iniciar"){ 
-  	
-      uno.innerHTML =reiniciar ;
-      
+  if (uno.innerHTML == "Iniciar"){   	
+      uno.innerHTML =reiniciar ;   
 
   }else{
   		 uno.innerHTML = iniciar;
@@ -117,6 +117,10 @@ function botonInicioRinicio() {
 
 
 //// Funcion del timer
+
+/*
+	esta funcion inica una cuenta regresiva para el juego
+*/
 
 	function timer () {
 	    setTimeout(Decrement,1000);
@@ -132,3 +136,74 @@ function botonInicioRinicio() {
     }
 /// fin timer	
 	
+
+
+// Funcion movimientos 3 el linea o mas 
+
+/*
+	En esta funcion se busca el elemento contenedor de todos los elementos Hijos de la columan,
+	opteniendo cada HIJO en cada ciclo del segundo for una ves optenido el elemento,
+	buscamos el elemento NIETO para optener su ID que coicide con nombre de la imagen asignada,
+	SI se encuentran 3 elementos juntos, nieto e hijo, para posteriomet llamar a una funcion
+
+
+
+*/
+
+function Tres_en_line () {
+	var elemColumna;
+	var elemPrimerNivel;
+	var elemSegundoNivel;
+	
+	var p=document.getElementById("score-text").innerHTML;
+	var puntos=parseInt(p);
+
+	
+
+	for (var ide = 0 ; ide<vectorColumnas.length; ide++) {
+		
+		elemColumna=document.getElementById(vectorColumnas[ide]); //optengo columan
+
+		var auxiliar= document.getElementById(elemColumna.id).getElementsByTagName('div');// dame tu array elemetos.		
+		var auxSegudoNivel=[];
+		
+		for(var i=0;i<auxiliar.length;i++){
+			var eleAux=auxiliar[i].firstChild;			
+			auxSegudoNivel.push(eleAux);
+		}
+		//alert(auxSegudoNivel.length);
+		for(var i=0;i<5;i++){
+		
+			var a=i+1;
+			var b=a+1;
+			var Aux1=auxSegudoNivel[i].className;
+			var Aux2=auxSegudoNivel[a].className;
+			var Aux3=auxSegudoNivel[b].className;
+
+			if(Aux1.valueOf()==Aux2.valueOf()){
+				//alert(1);
+				if (Aux2.valueOf()==Aux3.valueOf()) {
+					//alert(2);
+					elemPrimerNivel=auxSegudoNivel[i].parentNode;
+					var elemPrimerNivel2=auxSegudoNivel[a].parentNode;
+					var elemPrimerNivel3=auxSegudoNivel[b].parentNode;
+					elemPrimerNivel.removeChild(auxSegudoNivel[i]);
+					elemPrimerNivel2.removeChild(auxSegudoNivel[a]);
+					elemPrimerNivel3.removeChild(auxSegudoNivel[b]);
+
+				}
+			}
+
+			
+		}
+
+		
+
+		
+		
+
+	}
+}
+
+// fin movimientos
+
