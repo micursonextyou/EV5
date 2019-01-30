@@ -11,13 +11,15 @@ animacion = function(){
 setInterval(animacion, 500);
 
 
-});
+// funciones para elmininar dulses
+removerdulces = function(){
+	$(".marca").remove();
 
-
-
-
+}
+setInterval(removerdulces, 1500);
 // funciones pamanejar el despasamiento de celdas
+
  
     $( ".sortable" ).sortable();
     $( ".sortable" ).disableSelection();
-
+});

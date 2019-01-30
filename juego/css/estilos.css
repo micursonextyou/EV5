@@ -102,7 +102,9 @@ div[class^='col']{
 .elemento{
   width: 99.4px;
   height: 96px;
-
+}
+.indice{
+  height: 14.28%;
 }
 /*#A1{
   background-color: #ffffff;
@@ -120,4 +122,15 @@ div[class^='col']{
   100%{
     transform: translate(0,0%);
   }
+}
+
+@-webkit-keyframes  tras {
+  from{
+    opacity: 1;
+    
+
+    }to{
+      opacity: 0;
+     
+    }
 }
