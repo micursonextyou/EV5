@@ -153,9 +153,9 @@ function crear_nodos(){
 			elemPadre.setAttribute("style", "animation: efecto_caida 4s;");
 			var array=[];
 			array.push(elemPadre);
-
-			NUEVOnodo(array);	
+			
 		}	
+		NUEVOnodo(array);	
 	}
 }
 
