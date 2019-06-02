@@ -1,0 +1,29 @@
+ Correctos
+
+1  inico corr	 			intento 1
+2  creo nodos corre 			intento 2
+3  busca patrones corr     		intento 38
+4  elimina correctamen 			intento 16 
+5  desplazo elementos corr              inteneto 2
+6  recargo   '' faltantes		intento 5
+7  suma puntos corr			intento 1
+8  timer	corr			intento 1
+9  time out				intento 1
+10 animacion titulo corr		intento	1
+11 animacion elem repetidos corr	intento 1
+
+
+Problemas
+
+1 draggacle no responde			sin solucion
+2 acciones muy aceleradas 		sin solucion	
+3 fallas metodos drop 			sin solucion 	 
+
+
+
+acciones 
+
+1 restructurar proyecto completo para un nuevo enfoque  	ok
+2 separar codigo						ok	
+
+	
