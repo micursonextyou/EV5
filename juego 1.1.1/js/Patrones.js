@@ -27,6 +27,7 @@ function GenerarMatris() {
  				}
  				buscarCoincidencias(vectorFilas);
  			}
+
  }
  function enLineaColumnas(){
 
@@ -46,65 +47,83 @@ descompongo el vector en variables para poder determinar los jugadas comunes y
 */
 function buscarCoincidencias(vector){
 
-	// declaracion de variables
-		var e0,e1,e2,e3,e4,e5,e6;
-		var en0,en1,en2,en3,en4,en5,en6;
-		// descompongo el vector
-		e0=vector[0];e1=vector[1];e2=vector[2];e3=vector[3];e4=vector[4];e5=vector[5];e6=vector[6];
-		// Asigno el nombre de clase de un elemnto a variables para evaluar sus pociciones consecutivas.
-		en0=e0.className; en1=e1.className; en2=e2.className; en3=e3.className; en4=e4.className;	en5=e5.className; en6=e6.className;
-		// casos de coincidencias
+		// declaracion de variables
+			var e0,e1,e2;
+			var en0,en1,en2;
+			// descompongo el vector
+			e0=vector[0];e1=vector[1];e2=vector[2];e3=vector[3];e4=vector[4];e5=vector[5];e6=vector[6];
+			// Asigno el nombre de clase de un elemnto a variables para evaluar sus pociciones consecutivas.
+			en0=e0.className; en1=e1.className; en2=e2.className; en3=e3.className; en4=e4.className;	en5=e5.className; en6=e6.className;
+			// casos de coincidencias
 
-		if(en0.valueOf()==en1.valueOf() && en1.valueOf()==en2.valueOf() ){
-				console.log("condicon1");	puntuacion(en0); var vector3=[e0,e1,e2];	mark(vector3);
+			if(en0.valueOf()==en1.valueOf() && en1.valueOf()==en2.valueOf() ){
+						puntuacion(en0); var vector3=[e0,e1,e2];	mark(vector3);
 
-		}
-		if(en0.valueOf()==en1.valueOf() && en1.valueOf()==en2.valueOf() && en2.valueOf()==en3.valueOf() ){
-						console.log("condicon2");		puntuacion(en0);	var vector4=[e0,e1,e2,e3];						mark(vector4);
-		}
-		if(en0.valueOf()==en1.valueOf() && en1.valueOf()==en2.valueOf() && en2.valueOf()==en3.valueOf() && en3.valueOf()==en4.valueOf()){
-								console.log("condicon3");	puntuacion(en0);		var vector5=[e0,e1,e2,e3,e4];			mark(vector5);
+			}
+			if(en0.valueOf()==en1.valueOf() && en1.valueOf()==en2.valueOf() && en2.valueOf()==en3.valueOf() ){
+						puntuacion(en0);	var vector4=[e0,e1,e2,e3];						mark(vector4);
+			}
+			if(en0.valueOf()==en1.valueOf() && en1.valueOf()==en2.valueOf() && en2.valueOf()==en3.valueOf() && en3.valueOf()==en4.valueOf()){
+						puntuacion(en0);		var vector5=[e0,e1,e2,e3,e4];			mark(vector5);
 
-		}
-		if(en0.valueOf()==en1.valueOf() && en1.valueOf()==en2.valueOf() && en2.valueOf()==en3.valueOf() && en3.valueOf()==en4.valueOf() && en4.valueOf()==en5.valueOf()){
-								console.log("condicon4"); puntuacion(en0);var vector6=[e0,e1,e2,e3,e4,e5];mark(vector6);
+			}
+			if(en0.valueOf()==en1.valueOf() && en1.valueOf()==en2.valueOf() && en2.valueOf()==en3.valueOf() && en3.valueOf()==en4.valueOf() && en4.valueOf()==en5.valueOf()){
+						puntuacion(en0);var vector6=[e0,e1,e2,e3,e4,e5];mark(vector6);
 
-		}
-		if(en0.valueOf()==en1.valueOf() && en1.valueOf()==en2.valueOf() && en2.valueOf()==en3.valueOf() && en3.valueOf()==en4.valueOf() && en4.valueOf()==en5.valueOf() && en5.valueOf()==en6.valueOf()){
-								console.log("condicon5"); puntuacion(en0);var vector7=[e0,e1,e2,e3,e4,e5,e6];mark(vector7);
+			}
+			if(en0.valueOf()==en1.valueOf() && en1.valueOf()==en2.valueOf() && en2.valueOf()==en3.valueOf() && en3.valueOf()==en4.valueOf() && en4.valueOf()==en5.valueOf() && en5.valueOf()==en6.valueOf()){
+						puntuacion(en0);var vector7=[e0,e1,e2,e3,e4,e5,e6];mark(vector7);
 
-		}
-		if(en1.valueOf() && en1.valueOf()==en2.valueOf() && en2.valueOf()==en3.valueOf() && en3.valueOf()==en4.valueOf() && en4.valueOf()==en5.valueOf() && en5.valueOf()==en6.valueOf()){
-							console.log("condicon6"); 	puntuacion(en1);var vector6a=[e1,e2,e3,e4,e5,e6];mark(vector6a);
+			}
+			if(en1.valueOf() && en1.valueOf()==en2.valueOf() && en2.valueOf()==en3.valueOf() && en3.valueOf()==en4.valueOf() && en4.valueOf()==en5.valueOf() && en5.valueOf()==en6.valueOf()){
+						puntuacion(en1);var vector6a=[e1,e2,e3,e4,e5,e6];mark(vector6a);
 
-		}
-		if( en2.valueOf()==en3.valueOf() && en3.valueOf()==en4.valueOf() && en4.valueOf()==en5.valueOf() && en5.valueOf()==en6.valueOf()){
-						console.log("condicon7");		puntuacion(en2);var vector5a=[e2,e3,e4,e5,e6];mark(vector5a);
+			}
+			if( en2.valueOf()==en3.valueOf() && en3.valueOf()==en4.valueOf() && en4.valueOf()==en5.valueOf() && en5.valueOf()==en6.valueOf()){
+						puntuacion(en2);var vector5a=[e2,e3,e4,e5,e6];mark(vector5a);
 
-		}
-		if(en3.valueOf()==en4.valueOf() && en4.valueOf()==en5.valueOf() && en5.valueOf()==en6.valueOf()){
-					console.log("condicon8");		puntuacion(en3);var vector4a=[e3,e4,e5,e6];mark(vector4a);
-		}
-		if(en4.valueOf()==en5.valueOf() && en5.valueOf()==en6.valueOf()){
-				console.log("condicon9");	puntuacion(en4);	var vector3a=[e4,e5,e6];mark(vector3a);
+			}
+			if(en3.valueOf()==en4.valueOf() && en4.valueOf()==en5.valueOf() && en5.valueOf()==en6.valueOf()){
+						puntuacion(en3);var vector4a=[e3,e4,e5,e6];mark(vector4a);
+			}
+			if(en4.valueOf()==en5.valueOf() && en5.valueOf()==en6.valueOf()){
+						puntuacion(en4);	var vector3a=[e4,e5,e6];mark(vector3a);
 
-		}
-		if(en1.valueOf()==en2.valueOf() && en2.valueOf()==en3.valueOf() && en3.valueOf()==en4.valueOf() && en4.valueOf()==en5.valueOf()){
-						console.log("condicon10"); 	puntuacion(en1);	var vector5es=[e1,e2,e3,e4,e5];	mark(vector5es);
+			}
+			if(en1.valueOf()==en2.valueOf() && en2.valueOf()==en3.valueOf() && en3.valueOf()==en4.valueOf() && en4.valueOf()==en5.valueOf()){
+						puntuacion(en1);	var vector5es=[e1,e2,e3,e4,e5];	mark(vector5es);
 
-		}
-		if(en2.valueOf()==en3.valueOf() && en3.valueOf()==en4.valueOf()){
-				console.log("condicon11"); 	puntuacion(en2);var vector3es=[e2,e3,e4];		mark(vector3es);
+			}
+			if(en2.valueOf()==en3.valueOf() && en3.valueOf()==en4.valueOf()){
+					 	puntuacion(en2);var vector3es=[e2,e3,e4];		mark(vector3es);
 
-		}
-		if(en1.valueOf()==en2.valueOf() && en2.valueOf()==en3.valueOf()){
-				console.log("condicon12"); puntuacion(en2);	var vector3esa=[e1,e2,e3];	mark(vector3esa);
+			}
+			if(en1.valueOf()==en2.valueOf() && en2.valueOf()==en3.valueOf()){
+					 puntuacion(en2);	var vector3esa=[e1,e2,e3];	mark(vector3esa);
 
-		}
-		if(en3.valueOf()==en4.valueOf() && en4.valueOf()==en5.valueOf()){
-				console.log("condicon13"); 	puntuacion(en3);	var vector3esb=[e3,e4,e5];	mark(vector3esb);
+			}
+			if(en3.valueOf()==en4.valueOf() && en4.valueOf()==en5.valueOf()){
+						puntuacion(en3);	var vector3esb=[e3,e4,e5];	mark(vector3esb);
 
-		}
+			}
+
+
+
+		/*for(var i=0;i<5;i++){
+			var a=i+1;
+			var b=a+1;
+			var aux1=vector[i].className;
+			var aux2=vector[a].className;
+			var aux3=vector[b].className;
+			if(aux1.valueOf()== aux2.valueOf()  && aux2.valueOf()== aux3.valueOf() ){
+				var vec=[vector[i],vector[a],vector[b]];
+				puntuacion(aux1);
+				mark(vec);
+			}
+
+		}*/
+
+
 
 }
 
@@ -119,7 +138,7 @@ function puntuacion(expre) {
 	if(expre.indexOf("11")){newexpre="I1";}
 	if(expre.indexOf("I2")){newexpre="I2";}
 	if(expre.indexOf("I3")){newexpre="I3";}
-	console.log(newexpre);
+
 	switch (newexpre) {
 		case "I0":
 			puntos=puntos+30;
@@ -143,3 +162,65 @@ function puntuacion(expre) {
 
 }
 /* funcion para ordenar la matriz se ejectura de foma automatica, cono esto desplaso los elemento para no dejar espacion vacios*/
+
+
+
+/*	// declaracion de variables
+		var e0,e1,e2;
+		var en0,en1,en2;
+		// descompongo el vector
+		e0=vector[0];e1=vector[1];e2=vector[2];e3=vector[3];e4=vector[4];e5=vector[5];e6=vector[6];
+		// Asigno el nombre de clase de un elemnto a variables para evaluar sus pociciones consecutivas.
+		en0=e0.className; en1=e1.className; en2=e2.className; en3=e3.className; en4=e4.className;	en5=e5.className; en6=e6.className;
+		// casos de coincidencias
+
+		if(en0.valueOf()==en1.valueOf() && en1.valueOf()==en2.valueOf() ){
+					puntuacion(en0); var vector3=[e0,e1,e2];	mark(vector3);
+
+		}
+		if(en0.valueOf()==en1.valueOf() && en1.valueOf()==en2.valueOf() && en2.valueOf()==en3.valueOf() ){
+					puntuacion(en0);	var vector4=[e0,e1,e2,e3];						mark(vector4);
+		}
+		if(en0.valueOf()==en1.valueOf() && en1.valueOf()==en2.valueOf() && en2.valueOf()==en3.valueOf() && en3.valueOf()==en4.valueOf()){
+					puntuacion(en0);		var vector5=[e0,e1,e2,e3,e4];			mark(vector5);
+
+		}
+		if(en0.valueOf()==en1.valueOf() && en1.valueOf()==en2.valueOf() && en2.valueOf()==en3.valueOf() && en3.valueOf()==en4.valueOf() && en4.valueOf()==en5.valueOf()){
+					puntuacion(en0);var vector6=[e0,e1,e2,e3,e4,e5];mark(vector6);
+
+		}
+		if(en0.valueOf()==en1.valueOf() && en1.valueOf()==en2.valueOf() && en2.valueOf()==en3.valueOf() && en3.valueOf()==en4.valueOf() && en4.valueOf()==en5.valueOf() && en5.valueOf()==en6.valueOf()){
+					puntuacion(en0);var vector7=[e0,e1,e2,e3,e4,e5,e6];mark(vector7);
+
+		}
+		if(en1.valueOf() && en1.valueOf()==en2.valueOf() && en2.valueOf()==en3.valueOf() && en3.valueOf()==en4.valueOf() && en4.valueOf()==en5.valueOf() && en5.valueOf()==en6.valueOf()){
+					puntuacion(en1);var vector6a=[e1,e2,e3,e4,e5,e6];mark(vector6a);
+
+		}
+		if( en2.valueOf()==en3.valueOf() && en3.valueOf()==en4.valueOf() && en4.valueOf()==en5.valueOf() && en5.valueOf()==en6.valueOf()){
+					puntuacion(en2);var vector5a=[e2,e3,e4,e5,e6];mark(vector5a);
+
+		}
+		if(en3.valueOf()==en4.valueOf() && en4.valueOf()==en5.valueOf() && en5.valueOf()==en6.valueOf()){
+					puntuacion(en3);var vector4a=[e3,e4,e5,e6];mark(vector4a);
+		}
+		if(en4.valueOf()==en5.valueOf() && en5.valueOf()==en6.valueOf()){
+					puntuacion(en4);	var vector3a=[e4,e5,e6];mark(vector3a);
+
+		}
+		if(en1.valueOf()==en2.valueOf() && en2.valueOf()==en3.valueOf() && en3.valueOf()==en4.valueOf() && en4.valueOf()==en5.valueOf()){
+					puntuacion(en1);	var vector5es=[e1,e2,e3,e4,e5];	mark(vector5es);
+
+		}
+		if(en2.valueOf()==en3.valueOf() && en3.valueOf()==en4.valueOf()){
+				 	puntuacion(en2);var vector3es=[e2,e3,e4];		mark(vector3es);
+
+		}
+		if(en1.valueOf()==en2.valueOf() && en2.valueOf()==en3.valueOf()){
+				 puntuacion(en2);	var vector3esa=[e1,e2,e3];	mark(vector3esa);
+
+		}
+		if(en3.valueOf()==en4.valueOf() && en4.valueOf()==en5.valueOf()){
+					puntuacion(en3);	var vector3esb=[e3,e4,e5];	mark(vector3esb);
+
+		}*/

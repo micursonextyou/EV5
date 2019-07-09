@@ -3,17 +3,11 @@
 $(document).ready(function() {
 
 
-
-
 animacion = function(){
     $("#titulo").animate({ color:'#fff'}).animate({color:'#DCFF0E'});
 }
 setInterval(animacion, 500);
 //setInterval(Animar_elemtntos_marcados, 1000);
-
-
-
-
 
 
 
@@ -63,11 +57,14 @@ function drag(){
 
        });
        var mov = $("#movimientos-text").text();
-       mov--;
-       $("#movimientos-text").text(mov);
-      /*
- 			enLineaFilas();
- 			enLineaColumnas();*/
+       if(mov>0){
+         mov--;
+         $("#movimientos-text").text(mov);
+
+ 			    //GenerarMatris();
+      }else{
+         play();
+      }
 
     }
 
