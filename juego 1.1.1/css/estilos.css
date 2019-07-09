@@ -104,3 +104,15 @@ div[class^='col']{
   height: 96px;
 
 }
+
+@@keyframes reducir {
+  from{
+    width: 70%;
+    height: 700px;
+  }to{
+    width: 0%;
+    height: 0px;
+  }
+
+
+}

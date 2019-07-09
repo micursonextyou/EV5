@@ -1,4 +1,33 @@
-function GameOver(){
+
+
+
+
+
+
+function play() {
+
+
+
+        $('#tablero').animate({width: '0%',  height: '0px'},2000);
+
+        $('.panel-score').animate({width: '100%'});
+        $('#final').append('<h3 class="titulo-over">Game Over</h3>');
+        $('.score').animate({width: '100%'});
+        $('.moves').animate({width: '100%'});
+        $('.buttons').animate({width: '100%'});
+        $('.time').hide();
+        $('#tablero').hide();
+
+  }
+
+
+
+
+
+
+
+
+/*function GameOver(){
   var nuevopanel=document.createElement("div");//contenedor
 
   var panelleyendas=document.createElement("div");
@@ -110,4 +139,4 @@ function NewGame(){
   document.getElementById("ini").disabled = false;
   alert("Puede Volver a Jugar");
 
-}
+}*/

@@ -17,9 +17,9 @@ function Jugar() {
       Timer();
 			CrearNodos();
 			drag();
-			GenerarMatris();
-			setInterval("enLineaFilas()",1600);
-			setInterval("enLineaColumnas()",1800);
+			//GenerarMatris();
+			//setInterval("enLineaFilas()",1600);
+			//setInterval("enLineaColumnas()",1800);
 
 
 

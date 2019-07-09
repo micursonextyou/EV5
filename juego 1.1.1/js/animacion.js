@@ -14,17 +14,6 @@ setInterval(animacion, 500);
 
 
 
-  // llamado que permite invora la fucnion desde otro js
-//finJuego();
-
-
-
-
-
-
-
-
-// elementos vacios agregar marca
 
 
 
@@ -55,8 +44,9 @@ function finJuego(){
           var div=vectorColumnas[i];
           $('#'+div).remove();
         }
-        GameOver();
-        setTimeout(Sumar,1000); //funcion que suma los puntos de la partida
+        //GameOver();
+         play();
+        //setTimeout(Sumar,1000); //funcion que suma los puntos de la partida
 
     }
 }
