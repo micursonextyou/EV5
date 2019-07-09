@@ -5,15 +5,15 @@ var puntos=0;
 
 function GenerarMatris() {
 
-	var p=document.getElementById("score-text").innerHTML;
+
 	for (var i = 0 ; i<7; i++) {
 		matris_candys[i]= new Array(document.getElementById("A").getElementsByTagName('div')[i],document.getElementById("B").getElementsByTagName('div')[i],document.getElementById("C").getElementsByTagName('div')[i],document.getElementById("D").getElementsByTagName('div')[i],document.getElementById("E").getElementsByTagName('div')[i],document.getElementById("F").getElementsByTagName('div')[i],document.getElementById("G").getElementsByTagName('div')[i]);
 	}
 	fila=matris_candys;
 
+setTimeout("GenerarMatris()",500);
+
 }
-
-
 
 /*
 	Funcion para buscar elementos en linea
@@ -22,22 +22,39 @@ function GenerarMatris() {
 
  			for (var i = 0; i < 7; i++) {
  				var vectorFilas=[];
+				var vectorcolumnas=[];
  				for (var j = 0; j <7; j++) {
  						vectorFilas.push(fila[i][j].firstChild);
- 				}
- 				buscarCoincidencias(vectorFilas);
- 			}
 
+ 				}
+			 		buscarCoincidencias(vectorFilas);
+			}
+
+			setTimeout("enLineaFilas()",2300);
  }
  function enLineaColumnas(){
 
  			for (var i = 0; i < 7; i++) {
- 				var vectorFilas=[];
+ 				var vectorcolumnas=[];
  				for (var j = 0; j <7; j++) {
- 						vectorFilas.push(fila[j][i].firstChild);
+						vectorcolumnas.push(fila[j][i].firstChild);
  				}
- 				buscarCoincidencias(vectorFilas);
+ 				buscarCoincidencias(vectorcolumnas);
  			}
+			setTimeout("enLineaFilas()",2700);
+ }
+ //// filtro para elemimniar objetos duplocas en vector
+
+ function filtoDuplicado(un_vector) {
+ 	var aux1;
+ 	var aux2;
+ 	var vectorFiltrado=[];
+     for(var i = 0; i < un_vector.length; i++) {
+     	if(!vectorFiltrado.includes(un_vector[i])) {
+        		vectorFiltrado.push(un_vector[i]);
+     	}
+     }
+    	return vectorFiltrado;
  }
 
 /*

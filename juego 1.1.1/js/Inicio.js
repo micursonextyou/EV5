@@ -17,10 +17,10 @@ function Jugar() {
       Timer();
 			CrearNodos();
 			drag();
-			setInterval("GenerarMatris()",800);
-			setInterval("enLineaFilas()",1400);
-			setInterval("enLineaColumnas()",1700);
-			 setInterval("TranspasarCandys()",1000);
+			setTimeout("GenerarMatris()",800);
+			setTimeout("enLineaFilas()",2300);
+			setInterval("enLineaColumnas()",2500);
+			 
 
 
 

@@ -101,7 +101,7 @@ function AgregarCandy () {
 			}
 		}
 	}
-	GenerarMatris();
+	//GenerarMatris();
 
 }
 
@@ -131,5 +131,6 @@ function TranspasarCandys() {
 			}
 		}
 	}
-		 AgregarCandy();
+AgregarCandy ();
+
 }
