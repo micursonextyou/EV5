@@ -20,7 +20,7 @@ function Jugar() {
 			setTimeout("GenerarMatris()",800);
 			setTimeout("enLineaFilas()",2300);
 			setInterval("enLineaColumnas()",2500);
-			 
+
 
 
 

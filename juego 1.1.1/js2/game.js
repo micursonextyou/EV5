@@ -10,7 +10,7 @@
 var newGame;
 
 var Game = function() {
-	
+
 	this.init = function(size, base, ui) {
 		this.base = base;
 		this.ui = ui;
@@ -46,13 +46,13 @@ var Game = function() {
 		var position;
 
 		this.base.hammer().on('dragleft dragright dragup dragdown', '.row', function(event) {
-			
+
 			//console.log('swipe', this, event);
 
 			event.gesture.preventDefault();
 
 			position = +$(this).attr('data-id');
-			
+
 			if (position !== undefined) {
 				that.testMove(position, event.type);
 				event.gesture.stopDetect();
@@ -209,7 +209,7 @@ var Game = function() {
 
 	this.removeClearedGemToLevel = function(gemsToRemove) {
 		var i;
-		
+
 		for (i = 0; i < gemsToRemove.length; i++) {
 			this.level[gemsToRemove[i]] = 0;
 			this.animateRemoveGems(gemsToRemove[i]);
@@ -297,7 +297,7 @@ var Game = function() {
 			var under = i + this.originalSize;
 			var lignePosition = Math.floor(under / this.originalSize);
 			var colPosition = under - Math.floor(lignePosition * this.originalSize);
-			
+
 			if (this.level[under] === 0 && this.level[i] !== 0) {
 
 				if (this.level[under] === 0 && this.level[under] !== undefined) {
@@ -305,7 +305,7 @@ var Game = function() {
 				}
 
 				break;
-			
+
 			} else if (this.level[i] === 0) {
 				this.createNewRandomGem(colPosition);
 			} else if (this.level[i] !== 0) {
@@ -351,21 +351,20 @@ $(document).ready(function() {
 	var $game = $('#game');
 	var $ui = $('#ui');
 
-	
 
-	$('.message button').on('click', function(event) {
-		event.preventDefault();
+
+	$('#ini').on('click', function(event) {
+
 		var value = +$(this).val();
-		$('.message').hide();
-		//console.log(value);
+
 		newGame = new Game();
 		newGame.init(value, $game, $ui);
-		
+
 	});
 
 
-	
-	
-	
+
+
+
 
 });

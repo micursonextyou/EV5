@@ -1,6 +1,10 @@
 
 
+function Reiniciar(){
 
+  location.reload();
+
+	}
 
 
 

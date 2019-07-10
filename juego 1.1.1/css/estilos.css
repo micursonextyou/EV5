@@ -1,5 +1,5 @@
 @font-face {
-  font-family: gameFont;
+  font-family: tableroFont;
   src: url('../fonts/PressStart2P.ttf');
 }
 *{
@@ -20,21 +20,23 @@ body{
 }
 
 .main-titulo{
-  font-family: gameFont;
+  font-family: tableroFont;
   font-size: 3em;
   color: #DCFF0E;
   width: 100%;
 }
 
 .panel-tablero{
-  width: 70%;
+  width: 700px;
   border: 10px solid #E87306;
   background: rgba(232, 115, 6, 0.5);
   border-radius: 5px;
   height: 700px;
   display: flex;
+
   flex-flow: row wrap;
 }
+
 
 .panel-score{
   width: 25%;
@@ -63,11 +65,11 @@ body{
 }
 
 .data-titulo, .data-info{
-  font-family: gameFont;
+  font-family: tableroFont;
   color: #E8CA06;
 }
 .titulo-over{
-  font-family: gameFont;
+  font-family: tableroFont;
   font-size: 3em;
   text-align: center;
   color: #DCFF0E;
@@ -76,7 +78,7 @@ body{
   background: #E8CA06;
   border: 6px solid #FFB206;
   border-radius: 5px;
-  font-family: gameFont;
+  font-family: tableroFont;
   font-size: 1.2em;
   color: #FF4007;
 }
@@ -113,6 +115,61 @@ div[class^='col']{
     width: 0%;
     height: 0px;
   }
-
-
 }
+
+
+
+  #tablero {
+  	height: 800px;
+  	width: 800px;
+  	//background: rgba(255, 255, 255, 0.25);
+  	//border: px solid rgba(255, 255, 255, 0.15);
+  	margin: 0 auto;
+  	position: relative;
+  	border-radius: 10px
+  }
+
+  #tablero .row {
+  	position: absolute;
+  	cursor: pointer;
+  	border-radius: 50%;
+  	-webkit-transform: scale(0.9);
+  	background-image: url(../images/gradient.png);
+  	background-size: cover;
+  	overflow: hidden;
+  }
+
+  #tablero .row.glow {
+  	z-index: 99;
+  	box-shadow: inset 0 0 10px 10px rgba(255,255,255,1);
+  }
+
+
+  #tablero .row.type-1 {
+
+  }
+
+
+  #tablero .row.type-2 {
+
+  }
+
+
+  #tablero .row.type-3 {
+
+  }
+
+
+  #tablero .row.type-4 {
+
+  }
+
+
+  #tablero .row.type-5 {
+
+  }
+
+
+  #tablero .row.type-6 {
+  	
+  }

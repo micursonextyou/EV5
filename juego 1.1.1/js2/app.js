@@ -1,251 +1,377 @@
-//uso hamer para el control de lo drag and drop
 
 
 
-$(function(){
+var newGame;
+
+var Game = function() {
+
+	this.init = function(size, base, ui) {
+		this.base = base;
+		this.ui = ui;
+		this.originalSize = size;
+		this.size = this.originalSize * this.originalSize;
+		this.caseHeight = base.height() / this.originalSize;
+		this.level = [];
+		this.typesOfGems = 4;
+		this.fillEnd = true;
+		this.switchEnd = true;
+		this.playerCanControl = false;
+		this.populateLevel();
+		this.NewLevel();
+		this.score = 0;
+		this.combo = 0;
+		this.bestCombo = 0;
+
+
+		setTimeout($.proxy(this.verificarLineas, this), 1000);
+	};
+
+	this.releaseGameControl = function(play) {
+		if (play) {
+			this.playerCanControl = true;
+			//this.bindDraggableEvent();
+		} else {
+			this.playerCanControl = false;
+			//base.find('.row').hammer().off('swipeleft swiperight swipeup swipedown');
+		}
+	};
+
+	this.bindDraggableEvent = function() {
+		var that = this;
+		var position;
+
+		this.base.hammer().on('dragleft dragright dragup dragdown', '.row', function(event) {
+
+			//console.log('swipe', this, event);
+
+			event.gesture.preventDefault();
+
+			position = +$(this).attr('data-id');
+
+			if (position !== undefined) {
+				that.testMove(position, event.type);
+				event.gesture.stopDetect();
+				return;
+			}
+		});
+	};
+
+	this.testMove = function(position, direction) {
+		switch(direction) {
+			case "dragleft":
+				if (position % this.originalSize !== 0) {
+					this.swipeGems(this.base.find('.row[data-id='+position+']'), position, this.base.find('.row[data-id='+(position - 1)+']'), position - 1);
+			}
+			break;
+
+			case "dragright":
+				if (position % this.originalSize !== this.originalSize - 1) {
+					this.swipeGems(this.base.find('.row[data-id='+position+']'), position, this.base.find('.row[data-id='+(position + 1)+']'), position + 1);
+				}
+			break;
+
+			case "dragup":
+				this.swipeGems(this.base.find('.row[data-id='+position+']'), position, this.base.find('.row[data-id='+(position - this.originalSize)+']'), position - this.originalSize);
+			break;
+
+			case "dragdown":
+				this.swipeGems(this.base.find('.row[data-id='+position+']'), position, this.base.find('.row[data-id='+(position + this.originalSize)+']'), position + this.originalSize);
+			break;
+		}
+	};
+
+	this.swipeGems = function(a, aID, b, bID) {
+
+		//console.log("switch: ", aID, bID);
+
+		if (this.switchEnd && a !== undefined && b !== undefined && aID >= 0 && bID >= 0 && aID <= this.size && bID <= this.size) {
+
+			var that = this;
+			var aTop = a.css('top');
+			var aLeft = a.css('left');
+			var bTop = b.css('top');
+			var bLeft = b.css('left');
+			var aType = this.level[aID];
+			var bType = this.level[bID];
+
+			this.switchEnd = false;
+
+			this.level[aID] = bType;
+			this.level[bID] = aType;
+
+			this.restarMovimiento(1);
+
+			//console.log("a&b types: ", bType, aType);
+
+			a.attr('data-id', bID).animate({
+				top: bTop,
+				left: bLeft
+			}, 250);
+
+			b.attr('data-id', aID).animate({
+				top: aTop,
+				left: aLeft
+			}, 250, function() {
+				that.switchEnd = true;
+				that.verificarLineas();
+			});
+		}
+	};
+
+	this.populateLevel = function() {
+		var i;
+		for (i = 0; i < this.size; i++) {
+			//not use 0
+			this.level[i] = Math.floor(Math.random() * this.typesOfGems);
+		}
+	};
+
+	this.NewLevel = function() {
+		var i;
+		var row = $(document.createElement('div'));
+		var lines = -1;
+		$('.row').remove();
+		for (i = 0; i < this.size; i++) {
+
+			if (i % this.originalSize === 0) {
+				lines++;
+			}
+			row.css({
+				top: lines * this.caseHeight,
+				left: i % this.originalSize * this.caseHeight,
+				height: this.caseHeight,
+				width: this.caseHeight
+
+			}).attr({
+				"class": 'type-' + this.level[i] + ' row',
+				"data-id": i
+			});
+			row.css('background-image', "url( image/" + this.level[i] + ".png)");
+
+		 this.base.append(row.clone());
+
+		}
+
+
+		this.lines = lines + 1;
+		this.itemDeLinea = this.size / this.lines;
+
+		this.bindDraggableEvent();
+		this.releaseGameControl(true);
+	};
+
+	this.verificarLineas = function() {
+		var k;
+		var counter = 0;
+		this.base.find('.row').removeClass('.glow');
+		for (k = 0; k < this.size; k++) {
+			counter = counter + this.DulcesSercanos(this.level[k], k);
+		}
+
+		if (counter === this.size) {
+			this.releaseGameControl(true);
+			return true;
+		} else {
+			this.releaseGameControl(false);
+			return false;
+		}
+	};
+
+	this.DulcesSercanos = function(tipoDulce, position) {
+		var flag = false;
+
+		if ( this.level[position - 1] === tipoDulce && this.level[position + 1] === tipoDulce && (position + 1) % this.lines !== 0 && position % this.lines ){
+			this.BorrarLimpiarNievel([position, position - 1, position + 1]);
+		} else {
+			flag = true;
+		}
+
+		if ( this.level[position - this.itemDeLinea] === tipoDulce && this.level[position + this.
+			itemDeLinea] === tipoDulce ){
+			this.BorrarLimpiarNievel([position - this.itemDeLinea, position, position + this.itemDeLinea]);
+		} else {
+			flag = true;
+		}
+
+		if (flag) {
+			return 1;
+		} else {
+			return 0;
+		}
+	};
+
+	this.BorrarLimpiarNievel = function(candySup) {
+		var i;
+
+		for (i = 0; i < candySup.length; i++) {
+			this.level[candySup[i]] = 0;
+			this.AnimarBorradoCandy(candySup[i]);
+		}
+	};
+
+	this.AnimarBorradoCandy = function(position) {
+		var that = this;
+
+		var difference = this.caseHeight / 2;
+
+		this.base.find('.row[data-id='+position+']')
+		.attr('data-id', false)
+		.addClass('glow').animate({ opacity: 0.4},500)
+    .animate({ opacity: 1},500).animate({
+			marginTop: difference,
+			marginLeft: difference,
+			height: 0,
+			width: 0
+		}, 500, function() {
+			$(this).remove();
+			that.Puntuacion(100);
+		});
+
+		if (that.fillEnd) {
+			//that.restarMovimiento(1);
+			that.recargar();
+		}
+	};
+
+	this.moverCandy = function(position, line, colPosition, destination) {
+		var that = this;
+
+		this.base.find('.row[data-id='+position+']').animate({
+			top: Math.abs(line * that.caseHeight)
+		}, 100, "swing").attr('data-id', destination);
+
+		this.level[destination] = this.level[position];
+		this.level[position] = 0;
+
+		if (line === 1) {
+			this.crearCandys(colPosition);
+		}
+	};
+
+	this.crearCandys = function(colPosition) {
+		// console.log("crearCandys", colPosition);
+
+		var that = this;
+		var gem = $(document.createElement('div'));
+
+		this.level[colPosition]= Math.floor(Math.random()* this.typesOfGems );
+
+
+		gem.addClass('type-' + this.level[colPosition] +' row').css({
+
+			top: -this.caseHeight,
+			left: colPosition * this.caseHeight,
+			height: this.caseHeight,
+			width: this.caseHeight,
+			opacity: 0
+
+		}).attr({
+			"data-id": colPosition
+		});
+		gem.css('background-image', "url( image/" + this.level[colPosition] + ".png)");
+		gem.appendTo(this.base);
+
+
+		gem.animate({
+			top: 0,
+			opacity: 1
+		},200);
+
+		this.bindDraggableEvent();
+	};
+
+	this.recargar = function(){
+		// console.log("recargar");
+
+		var i;
+		var counter = 0;
+
+		this.releaseGameControl(false);
+
+		this.fillEnd = false;
+
+		for (i = 0; i < this.level.length; i++) {
+
+			var under = i + this.originalSize;
+			var lignePosition = Math.floor(under / this.originalSize);
+			var colPosition = under - Math.floor(lignePosition * this.originalSize);
+
+			if (this.level[under] === 0 && this.level[i] !== 0) {
+
+				if (this.level[under] === 0 && this.level[under] !== undefined) {
+					this.moverCandy(i, lignePosition, colPosition, under);
+				}
+
+				break;
+
+			} else if (this.level[i] === 0) {
+				this.crearCandys(colPosition);
+			} else if (this.level[i] !== 0) {
+				counter++;
+			}
+		}
+
+		//console.log(this.level.length, counter);
+
+		if (this.level.length === counter) {
+			//console.log('no hole left');
+			this.fillEnd = true;
+			return setTimeout($.proxy(this.verificarLineas, this), 50);
+		} else {
+			return setTimeout($.proxy(this.recargar, this), 50);
+		}
+	};
+
+
+	this.Puntuacion = function(score){
+		this.score = Math.floor(this.score + score / 3, 10);
+		this.ui.find('#score-text').text(this.score);
+	};
+
+	this.restarMovimiento = function(mov){
+
+		if (mov > 0) {
+      var total=$("#movimientos-text").text();
+      if(total>0){
+        total=total-mov;
+        this.ui.find("#movimientos-text").text(total);
+      }else{
+				play();
+			}
+
+		}
+	};
+
+
+
+
+
+};
+
+
+$(document).ready(function() {
+
+
+
+  var $game = $('#tablero');
+  var $ui = $('.panel-score');
+
+
+
+	$('#ini').on('click', function(event) {
+
+		var value = 7;
+
+
+		//console.log(value);
+		newGame = new Game();
+		newGame.init(value, $game, $ui);
+
+	});
+
+
+
+
+
 
 });
-var newjuegos;
-var Candys=function(){
-  var Game = function() {
-////////////////////////////////////////////////////////////////////////
-  	this.inicio = function(size, base, ui) {
-  		this.base = base;
-  		this.ui = ui;
-  		this.tamaOri = size;
-  		this.tamano = this.tamaOriOri;
-  		this.altura = base.height() / this.tamaOri;
-  		this.nivel = [];
-  		this.tipoDulces = 4;
-  		this.llenar = true;
-  		this.switchEnd = true;
-  		this.playerControl = false;
-  		this.funaleatoria();
-  		this.drawNewLevel();
-  		this.score = 0;
-
-
-
-  		setTimeout($.proxy(this.comprobarlineas, this), 1000);
-  	};
-///////////////////////////////////////////////////////////////////////
-this.GameControl = function(play) {
-  if (play) {
-    this.playerControl = true;
-    //this.DraggableEvent();
-  } else {
-    this.playerControl = false;
-    //base.find('.row').hammer().off('swipeleft swiperight swipeup swipedown');
-  }
-};
-
-//////////////////////////////////////////////////////////////////////
-
-this.DraggableEvent = function() {
-  var that = this;
-  var position;
-
-  this.base.hammer().on('dragleft dragright dragup dragdown', '.row', function(event) {
-    event.gesture.preventDefault();
-     position = +$(this).attr('data-id');
-
-    if (position !== undefined) {
-      that.moviminetos(position, event.type);
-      event.gesture.stopDetect();
-      return;
-    }
-  });
-};
-
-/////////////////////////////////////////////////////////////////////
-
-this.moviminetos = function(position, direction) {
-  switch(direction) {
-    case "dragleft":
-      if (position % this.tamaOri !== 0) {
-        this.MoverDulces(this.base.find('.row[data-id='+position+']'), position, this.base.find('.row[data-id='+(position - 1)+']'), position - 1);
-    }
-    break;
-
-    case "dragright":
-      if (position % this.tamaOri !== this.tamaOri - 1) {
-        this.MoverDulces(this.base.find('.row[data-id='+position+']'), position, this.base.find('.row[data-id='+(position + 1)+']'), position + 1);
-      }
-    break;
-
-    case "dragup":
-      this.MoverDulces(this.base.find('.row[data-id='+position+']'), position, this.base.find('.row[data-id='+(position - this.tamaOri)+']'), position - this.tamaOri);
-    break;
-
-    case "dragdown":
-      this.MoverDulces(this.base.find('.row[data-id='+position+']'), position, this.base.find('.row[data-id='+(position + this.tamaOri)+']'), position + this.tamaOri);
-    break;
-  }
-};
-///////////////////////////////////////////////////////////////////////////////
-
-this.MoverDulces = function(a, aID, b, bID) {
-
-  //console.log("switch: ", aID, bID);
-
-  if (this.switchEnd && a !== undefined && b !== undefined && aID >= 0 && bID >= 0 && aID <= this.size && bID <= this.size) {
-
-    var that = this;
-    var aTop = a.css('top');
-    var aLeft = a.css('left');
-    var bTop = b.css('top');
-    var bLeft = b.css('left');
-    var aType = this.level[aID];
-    var bType = this.level[bID];
-
-    this.switchEnd = false;
-
-    this.level[aID] = bType;
-    this.level[bID] = aType;
-
-    this.comboUpdate(0);
-
-    //console.log("a&b types: ", bType, aType);
-
-    a.attr('data-id', bID).animate({
-      top: bTop,
-      left: bLeft
-    }, 250);
-
-    b.attr('data-id', aID).animate({
-      top: aTop,
-      left: aLeft
-    }, 250, function() {
-      that.switchEnd = true;
-      that.comprobarlineas();
-    });
-  }
-};
-
-
-///////////////////////////////////////////////////////////////////////
-
-this.funaleatoria = function() {
-  var i;
-  for (i = 0; i < this.size; i++) {
-    this.level[i] = Math.round(Math.random() * this.tipoDulces );
-  }
-};
-////////////////////////////////////////////////////////////////////////
-this.nuevoLevel = function() {
-  var i;
-  var row = $(document.createElement('div'));
-  var lines = -1;
-
-  $('.row').remove();
-
-  for (i = 0; i < this.tamano; i++) {
-
-    if (i % this.tamaOri === 0) {
-      lines++;
-    }
-
-    row.css({
-      top: lines * this.altura,
-      left: i % this.tamaOri * this.altura,
-      height: this.altura,
-      width: this.altura
-    }).attr({
-      "class": 'type-' + this.level[i] + ' row',
-      "data-id": i
-    });
-
-    this.base.append(row.clone());
-  }
-
-  this.lines = lines + 1;
-  this.itemByLine = this.tamano / this.lines;
-
-  this.DraggableEvent();
-  this.GameControl(true);
-};
-
-
-////////////////77//////////////////////////////////////////////////
-
-this.comprobarlineas = function() {
-  var k;
-  var counter = 0;
-
-  //reset
-  this.base.find('.row').removeClass('.glow');
-
-  for (k = 0; k < this.tamano; k++) {
-    counter = counter + this.dulcesalrededor(this.level[k], k);
-  }
-
-  if (counter === this.tamano) {
-    this.GameControl(true);
-    return true;
-  } else {
-    this.GameControl(false);
-    return false;
-  }
-};
-////////////////////////////////////////////////////////////////////////////////
-
-this.dulcesalrededor = function(gemType, position) {
-  var flag = false;
-
-  if ( this.level[position - 1] === gemType && this.level[position + 1] === gemType && (position + 1) % this.lines !== 0 && position % this.lines ){
-    this.eliminarDulce([position, position - 1, position + 1]);
-  } else {
-    flag = true;
-  }
-
-  if ( this.level[position - this.itemByLine] === gemType && this.level[position + this.
-    itemByLine] === gemType ){
-    this.eliminarDulce([position - this.itemByLine, position, position + this.itemByLine]);
-  } else {
-    flag = true;
-  }
-
-  if (flag) {
-    return 1;
-  } else {
-    return 0;
-  }
-};
-////////////////////////////////////////////////////////////////////////////////
-
-this.eliminarDulce = function(gemsToRemove) {
-  var i;
-
-  for (i = 0; i < gemsToRemove.length; i++) {
-    this.level[gemsToRemove[i]] = 0;
-    this.animarEliminar(gemsToRemove[i]);
-  }
-};
-////////////////////////////////////////////////////////////////////////////////
-this.animarEliminar = function(position) {
-  var that = this;
-
-  var difference = this.altura / 2;
-
-  this.base.find('.row[data-id='+position+']')
-  .attr('data-id', false)
-  .addClass('glow').animate({ opacity: 0.4},500)
-  .animate({ opacity: 1},500)
-  .animate({
-    marginTop: difference,
-    marginLeft: difference,
-    height: 0,
-    width: 0
-  }, 500, function() {
-    $(this).remove();
-    that.scoreUpdate(100);
-  });
-
-  if (that.fillEnd) {
-    that.comboUpdate(1);
-    that.fillHoles();
-  }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-};
