@@ -44,6 +44,7 @@ body{
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
+
 }
 
 
@@ -54,6 +55,7 @@ body{
   border: 10px solid #E87306;
   border-radius: 5px;
   background: rgba(232, 115, 6, 0.5);
+  
 }
 
 
@@ -132,7 +134,7 @@ div[class^='col']{
   #tablero .row {
   	position: absolute;
   	cursor: pointer;
-  	border-radius: 50%;
+  	border-radius: 5%;
   	-webkit-transform: scale(0.9);
   	background-image: url(../images/gradient.png);
   	background-size: cover;
@@ -145,31 +147,29 @@ div[class^='col']{
   }
 
 
+  #tablero .row.type-0 {
+    background-color: rgba(255, 255, 255, 0.25);
+      background-image: url( "../image/0.png");
+
+
+  }
+
+
   #tablero .row.type-1 {
+      background-color: rgba(255, 255, 255, 0.25);
+        background-image: url( "../image/1.png");
 
   }
 
 
   #tablero .row.type-2 {
+      background-color: rgba(255, 255, 255, 0.25);
+        background-image: url( "../image/2.png");
 
   }
 
 
   #tablero .row.type-3 {
-
-  }
-
-
-  #tablero .row.type-4 {
-
-  }
-
-
-  #tablero .row.type-5 {
-
-  }
-
-
-  #tablero .row.type-6 {
-  	
+      background-color: rgba(255, 255, 255, 0.25);
+      background-image: url( "../image/3.png");
   }

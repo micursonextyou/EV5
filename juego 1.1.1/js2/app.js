@@ -122,7 +122,7 @@ var Game = function() {
 		var i;
 		for (i = 0; i < this.size; i++) {
 			//not use 0
-			this.level[i] = Math.floor(Math.random() * this.typesOfGems);
+			this.level[i] =Math.floor(Math.random() * this.typesOfGems );
 		}
 	};
 
@@ -146,7 +146,8 @@ var Game = function() {
 				"class": 'type-' + this.level[i] + ' row',
 				"data-id": i
 			});
-			row.css('background-image', "url( image/" + this.level[i] + ".png)");
+
+			//row.css('background-image', "url( image/" + this.level[i] + ".png)");
 
 		 this.base.append(row.clone());
 
@@ -216,8 +217,8 @@ var Game = function() {
 
 		this.base.find('.row[data-id='+position+']')
 		.attr('data-id', false)
-		.addClass('glow').animate({ opacity: 0.4},500)
-    .animate({ opacity: 1},500).animate({
+		.addClass('glow').animate({opacity:0.5},250).animate({
+			opacity:1,
 			marginTop: difference,
 			marginLeft: difference,
 			height: 0,
@@ -254,7 +255,7 @@ var Game = function() {
 		var that = this;
 		var gem = $(document.createElement('div'));
 
-		this.level[colPosition]= Math.floor(Math.random()* this.typesOfGems );
+		this.level[colPosition]= Math.floor(Math.random() * this.typesOfGems );
 
 
 		gem.addClass('type-' + this.level[colPosition] +' row').css({
@@ -268,7 +269,7 @@ var Game = function() {
 		}).attr({
 			"data-id": colPosition
 		});
-		gem.css('background-image', "url( image/" + this.level[colPosition] + ".png)");
+	 //gem.css('background-image', "url( image/" + this.level[colPosition] + ".png)");
 		gem.appendTo(this.base);
 
 

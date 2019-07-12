@@ -11,16 +11,19 @@ function Reiniciar(){
 function play() {
 
 
-
-        $('#tablero').animate({width: '0%',  height: '0px'},2000);
+        $('.row').hide();
+        $('#tablero').animate({width: '0%',  height: '0px'},"slow","linear" );
 
         $('.panel-score').animate({width: '100%'});
-        $('#final').append('<h3 class="titulo-over">Game Over</h3>');
-        $('.score').animate({width: '100%'});
-        $('.moves').animate({width: '100%'});
-        $('.buttons').animate({width: '100%'});
+        $('#final').show();
+        $('.score').animate({width: '100%'},"slow","linear");
+        $('.moves').animate({width: '100%'},"slow","linear");
+        $('.buttons').animate({width: '100%'},"slow","linear");
         $('.time').hide();
-        $('#tablero').hide();
+
+        clearTimeout(StopTime);
+
+
 
   }
 

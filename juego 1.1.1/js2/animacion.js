@@ -1,6 +1,7 @@
 
 // funcion que anima el titulo intermitente
 $(function() {
+  $('#final').hide();
 
   animacion = function(){
       $("#titulo").animate({ color:'#fff'}).animate({color:'#DCFF0E'});
@@ -16,7 +17,7 @@ setInterval(animacion, 500);
 
 
 });
-
+var StopTime;
 function finJuego(){
 
     var valor=$("#timer").text().trim();
@@ -31,7 +32,7 @@ function cambiarboton(){
   if($("#ini").html()=="Iniciar"){
     $("#ini").html("Reiniciar");
     Timer();
-    setTimeout('finJuego()',200000);
+    StopTime=setTimeout('finJuego()',200000);
 
   }else{
     $("#ini").html("Iniciar");
